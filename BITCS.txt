@@ -1,0 +1,521 @@
+1.CREATE DATABASE Empolyee;
+  Use database;
+  CREATE TABLE Employee_Details(EmpId (int,primaryKey) name(varChar(45),not null) age int() joiningDate(date));
+  SELECT * FROM Employee_Details;
+  
+ALTER TABLE employee
+DROP COLUMN column_name;
+  
+DROP TABLE employee;
+SELECT * FROM employee;
+  
+5. CREATE INDEX idx_category ON inventory(category);
+   ALTER TABLE inventory
+   ADD employee VARCHAR(255);
+  
+6.INSERT INTO student (studentId, Name, age, grade)
+  VALUES (101, 'alice', 20, 'a');
+   
+7.UPDATE result
+  SET grade = 'b'
+  WHERE marks < 60;   
+   
+8.UPDATE student_table
+  SET grade = 'b'
+  WHERE grade = 'a';
+   
+9.DELETE FROM order
+  WHERE status = 'cancelled';
+   
+10.DELETE FROM student_table;
+   DROP TABLE student_table;
+
+   
+   MERGE INTO TableB AS Target
+   USING TableA AS Source
+   ON Target.ID = Source.ID
+   WHEN MATCHED THEN
+   UPDATE SET Target.value = Source.value
+   WHEN NOT MATCHED THEN
+   INSERT (ID, value)
+   VALUES (Source.ID, Source.value);
+  
+SELECT * FROM employee WHERE department = 'Sales';
+  
+SELECT customers.customer_id, customers.customer_name, orders.order_id, orders.order_date, orders.order_details
+FROM customers
+JOIN orders
+ON customers.customer_id = orders.customer_id;
+   
+JPA:
+  
+26.ORM-Object relational Mapping
+
+   Entity classes: this represent database tables as classes and Each instance of the class corresponds to row in the table and the class attributes map to the tables column
+   EntityManager:This entityManager communication between the application and the database it handles the operations like query, inserting, updating, and deleting, ensuring transactions are consistent.
+   mapping metaData:Metadata defines how objects map to the database schema this can be provided via config files, annotations XML files and  depending on the ORM tool
+   Query:ORM tools provide a query API allowing developers to perform database operations using object-oriented syntax instead of SQL
+   
+   
+27.components of jpa are:
+   Entity
+   EntityManager
+   Persistence unit
+   persistence context
+   query
+   Annotations
+   Transistions
+   callBacks and lisners
+   
+28.@Entity
+   public class Department {
+    @Id
+    @GeneratedValue
+   private Long id;
+
+   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+   private List<Employee> employees;
+}
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+}
+   
+29.jpql-java persistence query language
+   
+30.@Query("SELECT MIN(p.price) FROM Product p")
+   Double findMinimumPrice();   
+   
+31.   
+   write code to connect java application and database using jpa
+   
+32.import the package
+   register and deliver
+   establish the connection
+   create statement
+   process the result
+   close the connection
+   
+33.Polymorphism:
+
+   class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+    double add(double a, double b) {
+        return a + b;
+    }
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+        System.out.println(calc.add(2, 3));         
+        System.out.println(calc.add(2.5, 3.5));     
+        System.out.println(calc.add(1, 2, 3));   
+    }
+
+Encapsulation:
+
+@GETTER
+@SETTER
+class Employee {
+    private int id;
+    private String name;
+    private double salary;
+}
+
+public class Employee {
+    public static void main(String[] args) {
+        Employee emp = new Employee();
+        emp.setId(101);
+        emp.setName("Alice");
+        emp.setSalary(50000.00);
+        System.out.println("Employee ID: " + emp.getId());
+        System.out.println("Employee Name: " + emp.getName());
+        System.out.println("Employee Salary: " + emp.getSalary());
+    }
+}
+
+Inheritance:
+
+class ParentClass {
+
+}
+class ChildClass extends ParentClass {
+   
+}
+class Animal {
+    String name;
+    void eat() {
+        System.out.println(name + " is eating.");
+    }
+    void sleep() {
+        System.out.println(name + " is sleeping.");
+    }
+}
+class Dog extends Animal {
+    void bark() {
+        System.out.println(name + " is barking.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.name = "Buddy";
+        dog.eat();
+        dog.sleep();
+        dog.bark();
+    }
+}
+
+Abstraction:
+
+abstract class AbstractClass {
+    abstract void abstractMethod();
+    void concreteMethod() {
+        System.out.println("This is a concrete method.");
+    }
+}
+abstract class Vehicle {
+    abstract void start();
+    void stop() {
+        System.out.println("The vehicle has stopped.");
+    }
+}
+class Car extends Vehicle {
+    @Override
+    void start() {
+        System.out.println("The car starts with a key.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle myCar = new Car();
+        myCar.start(); 
+        myCar.stop();  
+    }
+}
+
+Throw-Throws:
+
+class ExceptionExample {
+    void checkAge(int age) throws IllegalArgumentException {
+        if (age < 18) {
+            throw new IllegalArgumentException("Age must be 18 or above.");
+        } else {
+            System.out.println("Age is valid.");
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        ExceptionExample example = new ExceptionExample();
+
+        try {
+            example.checkAge(16);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+    }
+}
+
+34.equals() and ==:
+
+String str1 = new String("hello");
+String str2 = new String("hello");
+if (str1.equals(str2)) {
+    System.out.println("equals(): Both strings are equal.");
+} else {
+    System.out.println("equals(): Strings are not equal.");
+}
+ 
+
+String str1 = new String("hello");
+String str2 = new String("hello");
+
+if (str1 == str2) {
+    System.out.println("==: Both strings refer to the same object.");
+} else {
+    System.out.println("==: Strings refer to different objects.");
+}
+   
+   
+final,finally,finalize:
+
+final int SPEED_LIMIT = 100;
+class Vehicle {
+    final void start() {
+        System.out.println("Vehicle starts");
+    }
+}
+final class Car {
+    void drive() {
+        System.out.println("Car is driving");
+    }
+}
+
+
+try {
+    int result = 10 / 2;
+    System.out.println("Result: " + result);
+} catch (ArithmeticException e) {
+    System.out.println("Exception caught: " + e.getMessage());
+} finally {
+    System.out.println("This will always execute.");
+}
+   
+class Resource {
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Finalize method called.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Resource res = new Resource();
+        res = null; 
+        System.gc(); 
+    }
+}
+   
+implements and extends:
+
+interface Animal {
+    void sound();
+}
+class Dog implements Animal {
+    @Override
+    public void sound() {
+        System.out.println("Dog barks.");
+    }
+}
+   
+   
+interface Vehicle {
+    void start();
+}
+
+interface Machine {
+    void stop();
+}
+
+class Car implements Vehicle, Machine {
+    @Override
+    public void start() {
+        System.out.println("Car starts.");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Car stops.");
+    }
+}
+
+checked and uncheked:
+
+public class CheckedExample {
+    public static void main(String[] args) {
+        try {
+            FileReader file = new FileReader("test.txt");
+        } catch (IOException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
+    }
+}
+
+public class UncheckedExample {
+    public static void main(String[] args) {
+        int num = 10;
+        int result = num / 0; 
+    }
+}
+
+methods and consistrints:
+
+class Bike {
+    void greet() {
+        System.out.println("method is constructor is created");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Bike obj = new Bike();
+        obj.greet();
+    }
+}
+class Bike {
+    Bike() {
+        System.out.println(" constructor is created");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Bike obj = new Bike();
+    }
+}
+
+treemap and hashmap:
+
+public class Example {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> map = new TreeMap<>();
+        map.put(3, "C");
+        map.put(1, "A");
+        map.put(2, "B");
+        System.out.println(map);
+    }
+}
+
+public class Example {
+    public static void main(String[] args) {
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(3, "C");
+        map.put(1, "A");
+        map.put(2, "B");
+        System.out.println(map); 
+    }
+}
+
+@enablewebMvc and @configuration:
+
+@Configuration
+@EnableWebMvc
+
+public class WebConfig implements WebMvcConfigurer {
+}
+
+@Configuration
+public class AppConfig {
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+
+
+35.syntax error
+missing parenthises
+missing close brackets{}
+
+38.Syntax error
+
+39.javaProgramming
+
+40.Syntax error
+incorrect decleration
+
+41.matrix[1]1
+
+45.@SpringBootApplication
+ public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(MyApplication.class);
+        app.setAllowBeanDefinitionOverriding(true);
+        app.run(args);
+    }
+}
+
+@Component("bean1")
+public class MyBean1 {
+}
+@Component("bean2")
+public class MyBean2 {
+}
+
+47.@RestController
+   @RequestMapping("/")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
+}
+
+48.Set<String> set = new HashSet<>(list);
+ List<String> newList = new ArrayList<>(set);
+
+49.0
+
+50.
+public class NumberPattern {
+public static void main(String[] args) {
+int n = 5; 
+for (int i = 1; i <= n; i++) {
+for (int j = 1; j <= i; j++) {
+System.out.print(j);
+}
+System.out.println(); 
+}
+for (int i = n - 1; i >= 1; i--) {
+for (int j = 1; j <= i; j++) {
+System.out.print(j);
+}
+system.out.println();
+}
+}
+
+51.public class Substrings {
+public static void main(String[] args) {
+String input = "abc";
+System.out.println("All substrings of the string " " + input + " " :");
+for (int i = 0; i < input.length(); i++) {
+for (int j = i + 1; j <= input.length(); j++) {
+System.out.println(input.substring(i, j));
+}
+}
+}
+
+52.
+public class TreeMapExample {
+public static void main(String[] args) {
+TreeMap<Integer, String> treeMap = new TreeMap<>();
+treeMap.put(1, "Apple");
+treeMap.put(3, "Banana");
+treeMap.put(5,"grapes");
+Map.Entry<Integer, String> firstEntry = treeMap.firstEntry();
+System.out.println("First Entry: " + firstEntry.getKey() + " -> " + firstEntry.getValue());
+Map.Entry<Integer, String> lastEntry = treeMap.lastEntry();
+System.out.println("Last Entry: " + lastEntry.getKey() + " -> " + lastEntry.getValue());
+    }
+}
+
+54.dispatcherServlet:is a class provided by spring but managed by tomcat/servlet container 
+.dispatcher servlet initilization time create webapplicationcontext
+
+56.@Configuration
+public class AppConfig {
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+@Bean
+is a objects which is managed by spring container
+
+@Dependency Injection
+Dependencycy injection is a part of IOC
+conversion from class to object called dependency injection
+
+@IOC:
+Inversion of controller
+IOC is a design pattern( solve common problem)
+spring is an implementation of ioc
+IOC states that invert the controlor manage the object to an external entity
+
